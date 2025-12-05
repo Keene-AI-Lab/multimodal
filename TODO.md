@@ -36,8 +36,8 @@ Convert `01-pipeline.png` (high-level pipeline flowchart) from static PNG to mer
 **Checklist:**
 - [x] Create `assets/diagrams/01-pipeline.mmd` recreating the pipeline flowchart in mermaid syntax
     - [x] feat: convert pipeline flowchart to mermaid format
-- [ ] Push changes to trigger GitHub Actions workflow and generate `assets/01-pipeline.png`
-    - [ ] build: trigger mermaid diagram generation workflow
+- [x] Generate `assets/01-pipeline.png` from mermaid source using mermaid-cli
+    - [x] build: generate pipeline diagram from mermaid source
 - [ ] Verify generated PNG renders correctly in README and has proper styling (dark theme, labels, legend)
     - [ ] test: verify generated pipeline diagram quality
 
