@@ -29,55 +29,11 @@ Using the **ADReSSo-2021** corpus [1], we extend last semester’s audio- and te
 **Figure 1.** High-level pipeline for multimodal Alzheimer's detection: ADReSSo-2021 audio is split into an audio branch(paralinguistic processing → acoustic features) and a text branch (speech-to-text → linguistic features). The resulting vectors are fed to tree-based or neural
 classifiers for AD vs CN prediction.
 
-<details>
-<summary><b>Preview: Mermaid Diagram (Click to expand)</b></summary>
-
-```mermaid
-%%{init: {'theme':'dark', 'themeVariables': { 'fontSize':'16px', 'fontFamily':'arial'}}}%%
-flowchart LR
-
-  %% Dataset
-  Dataset[(ADReSSo-2021)]
-
-  %% Preprocessing
-  subgraph Preprocessing [" "]
-    direction TB
-    AudioProc[Audio Processing]
-    STT[Speech to Text]
-  end
-
-  %% Feature extraction
-  subgraph FeatureExtraction [" "]
-    direction TB
-    Acoustic[Acoustic Feature]
-    Linguistic[Linguistic Feature]
-  end
-
-  %% Classification
-  Classifier["RandomForest<br/>XGBoost<br/>Multi-Layer Perceptron"]
-
-  %% Flows
-  Dataset --> AudioProc
-  Dataset --> STT
-
-  AudioProc --> Acoustic
-  STT --> Linguistic
-
-  Acoustic --> Classifier
-  Linguistic --> Classifier
-
-  %% Styling - dashed borders for all boxes
-  classDef dashedStyle stroke-dasharray: 5 5, stroke-width:2px
-  class AudioProc,STT,Acoustic,Linguistic,Classifier dashedStyle
-```
-
-**How to render this diagram:**
-1. **GitHub (native):** The mermaid code above renders automatically on GitHub
-2. **Mermaid Live Editor:** Copy the code from `assets/diagrams/01-pipeline.mmd` to [https://mermaid.live](https://mermaid.live)
-3. **VS Code:** Install the "Mermaid Preview" extension
-4. **Automated PNG generation:** Push `.mmd` file to trigger GitHub Actions workflow
-
-</details>
+| Abbreviation | Model |
+|--------------|-------|
+| RF | RandomForest |
+| XGB | XGBoost |
+| MLP | Multi-Layer Perceptron |
 
 <br>
 

@@ -2,24 +2,28 @@
 flowchart LR
 
   %% Dataset
-  Dataset[(ADReSSo-2021)]
+  subgraph DatasetBox [Dataset]
+    Dataset[(ADReSSo-2021)]
+  end
 
   %% Preprocessing
-  subgraph Preprocessing [" "]
+  subgraph Preprocessing [Preprocessing]
     direction TB
     AudioProc[Audio Processing]
     STT[Speech to Text]
   end
 
   %% Feature extraction
-  subgraph FeatureExtraction [" "]
+  subgraph FeatureExtraction [Feature Extraction]
     direction TB
     Acoustic[Acoustic Feature]
     Linguistic[Linguistic Feature]
   end
 
   %% Classification
-  Classifier["RandomForest<br/>XGBoost<br/>Multi-Layer Perceptron"]
+  subgraph Classification [Classification]
+    Classifier["RF<br/>XGB<br/>MLP"]
+  end
 
   %% Flows
   Dataset --> AudioProc
@@ -30,7 +34,3 @@ flowchart LR
 
   Acoustic --> Classifier
   Linguistic --> Classifier
-
-  %% Styling - dashed borders for all boxes
-  classDef dashedStyle stroke-dasharray: 5 5, stroke-width:2px
-  class AudioProc,STT,Acoustic,Linguistic,Classifier dashedStyle
