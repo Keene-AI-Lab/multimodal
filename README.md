@@ -3,7 +3,7 @@
 
 
 
-![poster](assets/Multimodal_Alzheimers_Detection.jpeg)
+![poster](assets/04-poster.jpeg)
 
 
 ### Introduction  
@@ -22,9 +22,63 @@ Using the **ADReSSo-2021** corpus [1], we extend last semester’s audio- and te
 
 ### Framework
 
-![figure01](assets/Figure_01.png)
-**Figure 1.** High-level pipeline for multimodal Alzheimer’s detection: ADReSSo-2021 audio is split into an audio branch(paralinguistic processing → acoustic features) and a text branch (speech-to-text → linguistic features). The resulting vectors are fed to tree-based or neural
+<p align="center">
+<img src="assets/01-pipeline.png" alt="Pipeline flowchart" width="1000">
+</p>
+
+**Figure 1.** High-level pipeline for multimodal Alzheimer's detection: ADReSSo-2021 audio is split into an audio branch(paralinguistic processing → acoustic features) and a text branch (speech-to-text → linguistic features). The resulting vectors are fed to tree-based or neural
 classifiers for AD vs CN prediction.
+
+<details>
+<summary><b>Preview: Mermaid Diagram (Click to expand)</b></summary>
+
+```mermaid
+%%{init: {'theme':'dark', 'themeVariables': { 'fontSize':'16px', 'fontFamily':'arial'}}}%%
+flowchart LR
+
+  %% Dataset
+  Dataset[(ADReSSo-2021)]
+
+  %% Preprocessing
+  subgraph Preprocessing [" "]
+    direction TB
+    AudioProc[Audio Processing]
+    STT[Speech to Text]
+  end
+
+  %% Feature extraction
+  subgraph FeatureExtraction [" "]
+    direction TB
+    Acoustic[Acoustic Feature]
+    Linguistic[Linguistic Feature]
+  end
+
+  %% Classification
+  Classifier["RandomForest<br/>XGBoost<br/>Multi-Layer Perceptron"]
+
+  %% Flows
+  Dataset --> AudioProc
+  Dataset --> STT
+
+  AudioProc --> Acoustic
+  STT --> Linguistic
+
+  Acoustic --> Classifier
+  Linguistic --> Classifier
+
+  %% Styling - dashed borders for all boxes
+  classDef dashedStyle stroke-dasharray: 5 5, stroke-width:2px
+  class AudioProc,STT,Acoustic,Linguistic,Classifier dashedStyle
+```
+
+**How to render this diagram:**
+1. **GitHub (native):** The mermaid code above renders automatically on GitHub
+2. **Mermaid Live Editor:** Copy the code from `assets/diagrams/01-pipeline.mmd` to [https://mermaid.live](https://mermaid.live)
+3. **VS Code:** Install the "Mermaid Preview" extension
+4. **Automated PNG generation:** Push `.mmd` file to trigger GitHub Actions workflow
+
+</details>
+
 <br>
 
 
@@ -54,11 +108,14 @@ The resulting vectors are **z-scored, concatenated, and fed to Random-Forest, XG
 
 
 
-### Feature Extraction  
+### Feature Extraction
 
 ### Framework
 
-![figure02](assets/Figure_02.png)
+<p align="center">
+<img src="assets/02-feature-extraction.png" alt="Feature extraction diagram" width="1000">
+</p>
+
 **Figure 2.** Feature-extraction pipeline: audio is windowed, embedded, and joined with Whisper-derived text embeddings to form the final feature vector v.
 
 
@@ -74,8 +131,11 @@ The eGeMAPS, wav2vec, and DistilBERT vectors are **z-scored, concatenated (1 880
 
 ### Results
 
-![figure03](assets/Figure_03.png)
-**Figure 2.** Feature-extraction pipeline: audio is windowed, embedded, and joined with Whisper-derived text embeddings to form the final feature vector v.
+<p align="center">
+<img src="assets/03-results.png" alt="Results comparison" width="800">
+</p>
+
+**Figure 3.** Performance comparison across modalities.
 
 
 Figure 3 ranks the best classifier from each stream. **Text-only (DistilBERT + XGBoost)** tops the chart at **82 % accuracy / 0.83 F1**, confirming that word-level information is the single strongest cue. Adding speech boosts the audio baseline: the **multimodal fusion** model reaches **70 % accuracy / 0.74 F1**, edging out the **audio-only** pipeline (**67 % / 0.70 F1**) built on wav2vec 2.0 features. Precision and recall trail the corresponding accuracies by < 3 pp in every case, so each model’s wins and losses are evenly distributed between AD and CN speakers.

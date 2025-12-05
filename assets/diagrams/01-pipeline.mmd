@@ -1,0 +1,36 @@
+%%{init: {'theme':'dark', 'themeVariables': { 'fontSize':'16px', 'fontFamily':'arial'}}}%%
+flowchart LR
+
+  %% Dataset
+  Dataset[(ADReSSo-2021)]
+
+  %% Preprocessing
+  subgraph Preprocessing [" "]
+    direction TB
+    AudioProc[Audio Processing]
+    STT[Speech to Text]
+  end
+
+  %% Feature extraction
+  subgraph FeatureExtraction [" "]
+    direction TB
+    Acoustic[Acoustic Feature]
+    Linguistic[Linguistic Feature]
+  end
+
+  %% Classification
+  Classifier["RandomForest<br/>XGBoost<br/>Multi-Layer Perceptron"]
+
+  %% Flows
+  Dataset --> AudioProc
+  Dataset --> STT
+
+  AudioProc --> Acoustic
+  STT --> Linguistic
+
+  Acoustic --> Classifier
+  Linguistic --> Classifier
+
+  %% Styling - dashed borders for all boxes
+  classDef dashedStyle stroke-dasharray: 5 5, stroke-width:2px
+  class AudioProc,STT,Acoustic,Linguistic,Classifier dashedStyle
