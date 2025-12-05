@@ -1,0 +1,63 @@
+name: Generate Mermaid Diagrams
+
+on:
+  push:
+    paths:
+      - 'assets/diagrams/*.mmd'
+  workflow_dispatch:
+
+jobs:
+  generate-diagrams:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Mermaid CLI
+        run: npm install -g @mermaid-js/mermaid-cli
+
+      - name: Generate diagram images
+        run: |
+          # Generate PNG from mermaid source files
+          # Using transparent background, dark theme, and specific dimensions
+
+          if [ -f "assets/diagrams/01-pipeline.mmd" ]; then
+            mmdc -i assets/diagrams/01-pipeline.mmd \
+                 -o assets/01-pipeline.png \
+                 -b transparent \
+                 -w 1200 \
+                 -H 800 \
+                 -t dark
+          fi
+
+          if [ -f "assets/diagrams/02-feature-extraction.mmd" ]; then
+            mmdc -i assets/diagrams/02-feature-extraction.mmd \
+                 -o assets/02-feature-extraction.png \
+                 -b transparent \
+                 -w 1200 \
+                 -H 800 \
+                 -t dark
+          fi
+
+          if [ -f "assets/diagrams/03-results.mmd" ]; then
+            mmdc -i assets/diagrams/03-results.mmd \
+                 -o assets/03-results.png \
+                 -b transparent \
+                 -w 1200 \
+                 -H 800 \
+                 -t dark
+          fi
+
+      - name: Commit and push generated images
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add assets/*.png
+          git diff --staged --quiet || git commit -m "chore: regenerate mermaid diagram images"
+          git push
