@@ -1,9 +1,9 @@
 
-## Multimodal Alzheimer’s Detection: Speech & Text
+## Multimodal Alzheimer's Detection: Speech & Text
 
-
-
-![poster](assets/04-poster.jpeg)
+<p align="center">
+<img src="assets/04-poster.jpeg" alt="Project poster" width="800">
+</p>
 
 
 ### Introduction  
@@ -22,18 +22,19 @@ Using the **ADReSSo-2021** corpus [1], we extend last semester’s audio- and te
 
 ### Framework
 
-<p align="center">
-<img src="assets/01-pipeline.png" alt="Pipeline flowchart" width="1000">
-</p>
-
-**Figure 1.** High-level pipeline for multimodal Alzheimer's detection: ADReSSo-2021 audio is split into an audio branch(paralinguistic processing → acoustic features) and a text branch (speech-to-text → linguistic features). The resulting vectors are fed to tree-based or neural
-classifiers for AD vs CN prediction.
+**Legend**
 
 | Abbreviation | Model |
 |--------------|-------|
 | RF | RandomForest |
 | XGB | XGBoost |
 | MLP | Multi-Layer Perceptron |
+
+<p align="center">
+<img src="assets/01-pipeline.png" alt="Pipeline flowchart" width="1000">
+</p>
+
+**Figure 1.** ADReSSo-2021 recordings flow through parallel audio and text pathways to extract acoustic and linguistic features, which are then classified to distinguish AD from cognitively normal speakers.
 
 <br>
 
@@ -58,8 +59,11 @@ The resulting vectors are **z-scored, concatenated, and fed to Random-Forest, XG
 | wav2vec 2.0 (speech)   | Base model       | **1024**   |
 | DistilBERT (language)  | CLS-token mean   | **768**     |
 | **Fusion** (concat)    | —                | **1880**   |
+
+**Table 1.** Feature extraction methods and dimensionality for each modality. The final fusion vector concatenates all features into 1880 dimensions.
 </div>
 
+<br>
 <br>
 
 
@@ -74,6 +78,15 @@ The resulting vectors are **z-scored, concatenated, and fed to Random-Forest, XG
 
 **Figure 2.** Feature-extraction pipeline: audio is windowed, embedded, and joined with Whisper-derived text embeddings to form the final feature vector v.
 
+**Legend**
+
+| Component | Output | Description |
+|-----------|--------|-------------|
+| eGeMAPS | 88-D | Prosodic features via mean±std pooling |
+| wav2vec 2.0 | 1024-D | Acoustic embeddings via averaging |
+| DistilBERT | 768-D | Linguistic embeddings via averaging |
+| Fusion | 1880-D | Z-scored and concatenated features |
+
 
 **Audio path.** Patient speech is windowed at 100 ms and 250 ms with 0 % or 50 % overlap.  Every frame yields 25 eGeMAPS descriptors; mean ± std pooling forms an 88-D prosodic vector.  The same frames feed wav2vec 2.0, whose hidden states are averaged to a 1024-D embedding.
 
@@ -87,14 +100,45 @@ The eGeMAPS, wav2vec, and DistilBERT vectors are **z-scored, concatenated (1 880
 
 ### Results
 
-<p align="center">
-<img src="assets/03-results.png" alt="Results comparison" width="800">
-</p>
+<div align="center">
 
-**Figure 3.** Performance comparison across modalities.
+<figure class="post-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Modality</th>
+        <th>Random Forest</th>
+        <th>XGBoost</th>
+        <th>MLP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Audio only</td>
+        <td>61%</td>
+        <td>71%</td>
+        <td>61%</td>
+      </tr>
+      <tr>
+        <td>Text only</td>
+        <td>77%</td>
+        <td>82%</td>
+        <td>74%</td>
+      </tr>
+      <tr>
+        <td>Audio + Text</td>
+        <td>70%</td>
+        <td>61%</td>
+        <td>67%</td>
+      </tr>
+    </tbody>
+  </table>
+  <figcaption><strong>Table 2.</strong> Classification accuracy by modality and classifier. Text-only models achieved the highest performance across all three classifiers.</figcaption>
+</figure>
 
+</div>
 
-Figure 3 ranks the best classifier from each stream. **Text-only (DistilBERT + XGBoost)** tops the chart at **82 % accuracy / 0.83 F1**, confirming that word-level information is the single strongest cue. Adding speech boosts the audio baseline: the **multimodal fusion** model reaches **70 % accuracy / 0.74 F1**, edging out the **audio-only** pipeline (**67 % / 0.70 F1**) built on wav2vec 2.0 features. Precision and recall trail the corresponding accuracies by < 3 pp in every case, so each model’s wins and losses are evenly distributed between AD and CN speakers.
+**Text-only (DistilBERT + XGBoost)** tops the results at **82% accuracy**, confirming that word-level information is the single strongest cue. The **multimodal fusion** model reaches **70% accuracy**, edging out the **audio-only** pipeline (**71%** best case) in some configurations, though XGBoost on audio alone performs surprisingly well.
 <br>
 
 

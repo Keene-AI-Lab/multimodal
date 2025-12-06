@@ -1,0 +1,39 @@
+%%{init: {'theme':'dark', 'themeVariables': { 'fontSize':'16px', 'fontFamily':'arial'}}}%%
+flowchart LR
+
+  Speech[Patient Speech]
+
+  %% Preprocessing
+  subgraph Preprocessing [Preprocessing]
+    direction TB
+    Windowing[Windowing]
+    Whisper[Whisper]
+  end
+
+  %% Feature Extraction
+  subgraph FeatureExtraction [Feature Extraction]
+    direction TB
+    eGeMAPS[eGeMAPS]
+    Wav2Vec[wav2vec 2.0]
+    DistilBERT[DistilBERT]
+  end
+
+  %% Fusion
+  subgraph Fusion [Fusion]
+    FusionBox[Z-score + Concat]
+  end
+
+  %% Flows
+  Speech --> Windowing
+  Speech --> Whisper
+
+  Windowing -->|frames| eGeMAPS
+  Windowing -->|frames| Wav2Vec
+
+  Whisper -->|transcripts| DistilBERT
+
+  eGeMAPS --> FusionBox
+  Wav2Vec --> FusionBox
+  DistilBERT --> FusionBox
+
+  FusionBox --> FeatureVector[Feature Vector]
