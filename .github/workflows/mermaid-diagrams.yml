@@ -26,6 +26,7 @@ jobs:
         run: |
           # Generate PNG from mermaid source files
           # Using transparent background, dark theme, and specific dimensions
+          # --puppeteerArgs flag needed for CI environment (no sandbox)
 
           if [ -f "assets/diagrams/01-pipeline.mmd" ]; then
             mmdc -i assets/diagrams/01-pipeline.mmd \
@@ -33,7 +34,8 @@ jobs:
                  -b transparent \
                  -w 1200 \
                  -H 800 \
-                 -t dark
+                 -t dark \
+                 --puppeteerArgs='--no-sandbox'
           fi
 
           if [ -f "assets/diagrams/02-feature-extraction.mmd" ]; then
@@ -42,7 +44,8 @@ jobs:
                  -b transparent \
                  -w 1200 \
                  -H 800 \
-                 -t dark
+                 -t dark \
+                 --puppeteerArgs='--no-sandbox'
           fi
 
           if [ -f "assets/diagrams/03-results.mmd" ]; then
@@ -51,7 +54,8 @@ jobs:
                  -b transparent \
                  -w 1200 \
                  -H 800 \
-                 -t dark
+                 -t dark \
+                 --puppeteerArgs='--no-sandbox'
           fi
 
       - name: Commit and push generated images
