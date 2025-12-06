@@ -60,8 +60,9 @@ The resulting vectors are **z-scored, concatenated, and fed to Random-Forest, XG
 | DistilBERT (language)  | CLS-token mean   | **768**     |
 | **Fusion** (concat)    | —                | **1880**   |
 
-**Table 1.** Feature extraction methods and dimensionality for each modality. The final fusion vector concatenates all features into 1880 dimensions.
 </div>
+
+**Table 1.** Feature extraction methods and dimensionality for each modality. The final fusion vector concatenates all features into 1880 dimensions.
 
 <br>
 <br>
@@ -101,41 +102,40 @@ The eGeMAPS, wav2vec, and DistilBERT vectors are **z-scored, concatenated (1 880
 
 <div align="center">
 
-<figure class="post-table">
-  <table>
-    <thead>
-      <tr>
-        <th>Modality</th>
-        <th>Random Forest</th>
-        <th>XGBoost</th>
-        <th>MLP</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Audio only</td>
-        <td>61%</td>
-        <td>71%</td>
-        <td>61%</td>
-      </tr>
-      <tr>
-        <td>Text only</td>
-        <td>77%</td>
-        <td>82%</td>
-        <td>74%</td>
-      </tr>
-      <tr>
-        <td>Audio + Text</td>
-        <td>70%</td>
-        <td>61%</td>
-        <td>67%</td>
-      </tr>
-    </tbody>
-  </table>
-  <figcaption><strong>Table 2.</strong> Classification accuracy by modality and classifier. Text-only models achieved the highest performance across all three classifiers.</figcaption>
-</figure>
+<table>
+  <thead>
+    <tr>
+      <th>Modality</th>
+      <th>Random Forest</th>
+      <th>XGBoost</th>
+      <th>MLP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Audio only</td>
+      <td>61%</td>
+      <td>71%</td>
+      <td>61%</td>
+    </tr>
+    <tr>
+      <td>Text only</td>
+      <td>77%</td>
+      <td>82%</td>
+      <td>74%</td>
+    </tr>
+    <tr>
+      <td>Audio + Text</td>
+      <td>70%</td>
+      <td>61%</td>
+      <td>67%</td>
+    </tr>
+  </tbody>
+</table>
 
 </div>
+
+**Table 2.** Classification accuracy by modality and classifier. Text-only models achieved the highest performance across all three classifiers.
 
 **Text-only (DistilBERT + XGBoost)** tops the results at **82% accuracy**, confirming that word-level information is the single strongest cue. The **multimodal fusion** model reaches **70% accuracy**, edging out the **audio-only** pipeline (**71%** best case) in some configurations, though XGBoost on audio alone performs surprisingly well.
 <br>
