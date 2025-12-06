@@ -22,8 +22,8 @@ Create directory structure and GitHub Actions workflow for automated mermaid dia
     - [x] build: configure mermaid-cli image generation parameters
 - [x] Configure workflow to auto-commit generated PNG images to `assets/` directory
     - [x] build: configure auto-commit for generated diagram images
-- [ ] Add `.mmd` files to git tracking and update `.gitignore` if needed to ensure both sources and generated PNGs are committed
-    - [ ] chore: configure git tracking for mermaid sources and generated images
+- [x] Add `.mmd` files to git tracking and update `.gitignore` if needed to ensure both sources and generated PNGs are committed
+    - [x] chore: configure git tracking for mermaid sources and generated images
 
 
 ## Phase 2: Diagram Migration
@@ -51,28 +51,10 @@ Convert `02-feature-extraction.png` (feature extraction pipeline detail) from st
 - [x] Create `assets/diagrams/02-feature-extraction.mmd` recreating the feature extraction flow in mermaid syntax
     - [x] feat: convert feature extraction diagram to mermaid format
 - [x] Generate `assets/02-feature-extraction.png` from mermaid source using mermaid-cli
-    - [x] feat: generate feature extraction diagram from mermaid source
-- [ ] Verify generated PNG renders correctly in README with proper styling
-    - [ ] test: verify generated feature extraction diagram quality
+    - [x] build: generate feature extraction diagram from mermaid source
+- [x] Verify generated PNG renders correctly in README and has proper styling (dark theme, labels, legend)
+    - [x] test: verify generated feature extraction diagram quality
 
-
-
-## Phase 3: Integration and Cleanup
-
-### Task 06 — Update README with Mermaid-Generated Figures
-
-**Objective:**
-Update README.md to reference mermaid-generated figures and document the mermaid-based diagram workflow for future maintainers.
-
-**Checklist:**
-- [ ] Verify all mermaid-generated PNGs display correctly in README.md (no broken references)
-    - [ ] test: verify mermaid-generated figures display in readme
-- [ ] Add note to README documenting that flowchart diagrams are generated from mermaid sources in `assets/diagrams/`
-    - [ ] docs: document mermaid diagram workflow in readme
-- [ ] Update figure captions if needed to reflect any visual changes from mermaid conversion
-    - [ ] docs: update figure captions if needed
-- [ ] Test README rendering on GitHub to ensure all images load correctly
-    - [ ] test: verify readme renders correctly on github
 
 
 ### Task 07 — Clean Up Assets and Standardize Organization
