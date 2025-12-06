@@ -38,8 +38,8 @@ Convert `01-pipeline.png` (high-level pipeline flowchart) from static PNG to mer
     - [x] feat: convert pipeline flowchart to mermaid format
 - [x] Generate `assets/01-pipeline.png` from mermaid source using mermaid-cli
     - [x] build: generate pipeline diagram from mermaid source
-- [ ] Verify generated PNG renders correctly in README and has proper styling (dark theme, labels, legend)
-    - [ ] test: verify generated pipeline diagram quality
+- [x] Verify generated PNG renders correctly in README and has proper styling (dark theme, labels, legend)
+    - [x] test: verify generated pipeline diagram quality
 
 
 ### Task 04 — Convert Feature Extraction Diagram to Mermaid
@@ -48,32 +48,13 @@ Convert `01-pipeline.png` (high-level pipeline flowchart) from static PNG to mer
 Convert `02-feature-extraction.png` (feature extraction pipeline detail) from static PNG to mermaid source format, following the same workflow as the pipeline flowchart.
 
 **Checklist:**
-- [ ] Create `assets/diagrams/02-feature-extraction.mmd` recreating the feature extraction flow in mermaid syntax
-    - [ ] feat: convert feature extraction diagram to mermaid format
-- [ ] Push changes to trigger GitHub Actions workflow and generate `assets/02-feature-extraction.png`
-    - [ ] build: trigger feature extraction diagram generation
+- [x] Create `assets/diagrams/02-feature-extraction.mmd` recreating the feature extraction flow in mermaid syntax
+    - [x] feat: convert feature extraction diagram to mermaid format
+- [x] Generate `assets/02-feature-extraction.png` from mermaid source using mermaid-cli
+    - [x] feat: generate feature extraction diagram from mermaid source
 - [ ] Verify generated PNG renders correctly in README with proper styling
     - [ ] test: verify generated feature extraction diagram quality
 
-
-### Task 05 — Create Results Visualization Using Mermaid
-
-**Objective:**
-Explore creating `03-results.png` (performance comparison bar chart) using mermaid charts instead of matplotlib/static PNG. If mermaid bar charts are insufficient for data visualization needs, keep the existing matplotlib-generated figure.
-
-**Checklist:**
-- [ ] Research mermaid bar chart capabilities and syntax for creating performance comparison visualizations
-    - [ ] chore: research mermaid chart options for data visualization
-- [ ] Evaluate if mermaid bar charts can effectively display the model performance metrics (accuracy, F1, precision, recall across modalities)
-    - [ ] chore: evaluate mermaid suitability for results visualization
-- [ ] If feasible, create `assets/diagrams/03-results.mmd` with mermaid bar chart showing performance comparison
-    - [ ] feat: create results visualization using mermaid charts
-- [ ] If feasible, configure GitHub Actions to generate `assets/03-results.png` from mermaid source
-    - [ ] build: add results visualization to mermaid generation workflow
-- [ ] If not feasible with mermaid, document decision to keep matplotlib-generated PNG and optimize existing figure for web
-    - [ ] docs: document results visualization format decision
-- [ ] Test generated visualization for readability and professional appearance
-    - [ ] test: verify results visualization quality
 
 
 ## Phase 3: Integration and Cleanup
