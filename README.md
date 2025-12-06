@@ -72,12 +72,6 @@ The resulting vectors are **z-scored, concatenated, and fed to Random-Forest, XG
 
 ### Framework
 
-<p align="center">
-<img src="assets/02-feature-extraction.png" alt="Feature extraction diagram" width="1000">
-</p>
-
-**Figure 2.** Feature-extraction pipeline: audio is windowed, embedded, and joined with Whisper-derived text embeddings to form the final feature vector v.
-
 **Legend**
 
 | Component | Output | Description |
@@ -87,6 +81,11 @@ The resulting vectors are **z-scored, concatenated, and fed to Random-Forest, XG
 | DistilBERT | 768-D | Linguistic embeddings via averaging |
 | Fusion | 1880-D | Z-scored and concatenated features |
 
+<p align="center">
+<img src="assets/02-feature-extraction.png" alt="Feature extraction diagram" width="1000">
+</p>
+
+**Figure 2.** Feature-extraction pipeline: audio is windowed, embedded, and joined with Whisper-derived text embeddings to form the final feature vector v.
 
 **Audio path.** Patient speech is windowed at 100 ms and 250 ms with 0 % or 50 % overlap.  Every frame yields 25 eGeMAPS descriptors; mean ± std pooling forms an 88-D prosodic vector.  The same frames feed wav2vec 2.0, whose hidden states are averaged to a 1024-D embedding.
 
